@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Valentine</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#ff7a9c,#ffc3d0);
+overflow:hidden;
+}
+
+.container{
+width:90%;
+max-width:480px;
+padding:35px;
+border-radius:20px;
+text-align:center;
+background:white;
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
+position:relative;
+overflow:hidden;
+}
+
+.teddy{
+font-size:70px;
+margin-bottom:10px;
+}
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:32px;
+color:#ff4d6d;
+margin-bottom:15px;
+}
+
+p{
+font-size:16px;
+margin-bottom:20px;
+color:#555;
+}
+
+button{
+padding:14px 24px;
+border:none;
+border-radius:30px;
+font-size:16px;
+margin:8px;
+cursor:pointer;
+transition:0.25s;
+}
+
+#yesBtn{
+background:#ff4d6d;
+color:white;
+}
+
+#yesBtn:hover{
+transform:scale(1.08);
+}
+
+#noBtn{
+background:#6c757d;
+color:white;
+position:absolute;
+left:55%;
+top:70%;
+transition:transform 0.3s ease;
+}
+
+/* floating kisses */
+.kiss{
+position:absolute;
+font-size:24px;
+animation:float 4s linear forwards;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-250px);opacity:0;}
+}
+
+.success{
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+height:100vh;
+width:100%;
+position:absolute;
+top:0;
+left:0;
+background:#ff4d6d;
+color:white;
+}
+
+.success h2{
+font-family:'Great Vibes',cursive;
+font-size:34px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container" id="main">
+
+<div class="teddy">🧸</div>
+
+<h1>Fahama pookie, will you be my Valentine?</h1>
+
+<p>Answer honestly 😌</p>
+
+<button id="yesBtn" onclick="yesClick()">Yes</button>
+<button id="noBtn">No</button>
+
+</div>
+
+<div class="success" id="success">
+<div class="teddy">🧸</div>
+<h2>Oh my God yess — I knew it pookiee, love youhh</h2>
+<div class="teddy">🧸</div>
+</div>
+
+<script>
+
+let noBtn=document.getElementById("noBtn");
+let container=document.getElementById("main");
+
+/* slower logical movement */
+container.addEventListener("mousemove",(e)=>{
+
+let rect=noBtn.getBoundingClientRect();
+
+let dx=e.clientX-(rect.left+rect.width/2);
+let dy=e.clientY-(rect.top+rect.height/2);
+
+let distance=Math.sqrt(dx*dx+dy*dy);
+
+if(distance<90){
+
+let moveX=(Math.random()-0.5)*120;
+let moveY=(Math.random()-0.5)*80;
+
+noBtn.style.transform=`translate(${moveX}px,${moveY}px)`;
+
+}
+
+});
+
+/* yes click */
+function yesClick(){
+
+document.getElementById("main").style.display="none";
+document.getElementById("success").style.display="flex";
+
+/* floating kisses */
+setInterval(()=>{
+
+let kiss=document.createElement("div");
+kiss.className="kiss";
+kiss.innerHTML="💋";
+kiss.style.left=Math.random()*100+"%";
+kiss.style.bottom="0px";
+
+document.body.appendChild(kiss);
+
+setTimeout(()=>kiss.remove(),4000);
+
+},250);
+
+}
+
+</script>
+
+</body>
+</html>
